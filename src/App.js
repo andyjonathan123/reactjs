@@ -6,13 +6,26 @@ class App extends Component {
     super()
 
     this.state = {
-       name : "berhasil"
+       user : []
     }
   }
+
+  getUser = async () => {
+    let response = await axios.get('https://jsonplaceholder.typicode.com/users/1')
+    this.setState({
+      user : response.data
+    })
+  }
+
+  componentDidMount(){
+    this.getUser()
+  }
+
+
   render() {
     return (
       <div>
-       <div>menggunakan data {this.state.name}</div>
+       <div>menggunakan data {this.state.user.name}</div>
       </div>
     );
   }
