@@ -1,32 +1,61 @@
-import React from 'react';
-import Card from './Components/Card';
+import React, {useState , useEffect} from 'react';
+import axios from "axios";
 
 function App() {
+
+  const [Users, SetUsers] = useState([])
+
+  const getUsers = async() =>{
+    try {
+      let response = await axios.get('https://jsonplaceholder.typicode.com/users')
+      SetUsers(response.data)
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
+  
   return (
-    <div className="py-4">
-      <div className='container'>
-      <h1>The Posts</h1>
-      <hr /> 
-      <div className='row'>
-        <Card 
-            title ="The First Post"
-            imageurl = "http://placekitten.com/g/300/200"
-            publish = "Published 22 Februari 2022"
-        />
+    <div className="py-5">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Website</th>
+                  <th>Phone</th>
+                </tr>
+              </thead>
 
-        <Card 
-            title ="The Second Post"
-            imageurl = "http://placekitten.com/300/200"
-            publish = "Published 22 Februari 2022"
-        />
-
-          <Card 
-            title ="The Third Post"
-            imageurl = "http://placekitten.com/g/300/200"
-            publish = "Published 22 Februari 2022"
-        />
+              <tbody>
+                {/* ini adalah perulangan dengan menggunakan reactjs */}
+                {
+                  Users.map((user, index) =>{
+                    return(
+                      <tr key={index}>
+                        <td>{user.name}</td>
+                        <td>{user.username}</td>
+                        <td>{user.email}</td>
+                        <td>{user.website}</td>
+                        <td>{user.phone}</td>
+                      </tr>
+                    )
+                  })
+                }
+                {/* sampai tahap ini */}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
+
     </div>
   );
 }
