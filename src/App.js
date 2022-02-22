@@ -1,47 +1,34 @@
-import React, {  useState } from "react";
+import React from 'react';
+import Card from './Components/Card';
 
 function App() {
-  const [firstname , setFirstname] = useState('')
-  const [lastname , setLastname] = useState('')
-  const [name , setName] = useState('')
-
-  const submitHandler= (e) =>{
-    e.preventDefault()
-    setName(`${firstname} ${lastname}`)
-
-    setFirstname('')
-    setLastname('')
-
-  }
   return (
-    <div className="p-5">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4">
-            <div className="card">
-              <div className="card-header">Learn react Function</div>
-              <div className="card-body">
-                <form action="" onSubmit={submitHandler}>
-                  <div className="mb-5">
-                    <label htmlFor="firstname" className="form-label">lastname</label>
-                    <input type="text" onChange={(e) => setFirstname(e.target.value)} value={firstname} name="firstname" id="firstname" className="form-control" />
-                  </div>
-                  <div className="mb-5">
-                    <label htmlFor="lastname" className="form-label">lastname</label>
-                    <input type="text" name="lastname" onChange={(e) => setLastname(e.target.value)}
-                    value={lastname} id="lastname" className="form-control" />
-                  </div>
-                  <button type="submit" className="btn btn-block btn-primary">Show</button>
-                </form>
-              </div>
-              <div className="card-footer">My name Is {name ? name : '. . .' }</div>
-            </div>
-          </div>
-        </div>
+    <div className="py-4">
+      <div className='container'>
+      <h1>The Posts</h1>
+      <hr /> 
+      <div className='row'>
+        <Card 
+            title ="The First Post"
+            imageurl = "http://placekitten.com/g/300/200"
+            publish = "Published 22 Februari 2022"
+        />
+
+        <Card 
+            title ="The Second Post"
+            imageurl = "http://placekitten.com/300/200"
+            publish = "Published 22 Februari 2022"
+        />
+
+          <Card 
+            title ="The Third Post"
+            imageurl = "http://placekitten.com/g/300/200"
+            publish = "Published 22 Februari 2022"
+        />
       </div>
     </div>
-  )
+    </div>
+  );
 }
-
 
 export default App;
