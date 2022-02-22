@@ -3,12 +3,17 @@ import axios from "axios";
 
 function App() {
 
+  const [identifier, SetIdentifier] = useState(1)
   const [Users, SetUsers] = useState([])
+  const [loading, SetLoading] = useState(false)
+  
 
   const getUsers = async() =>{
+    SetLoading(true)
     try {
-      let response = await axios.get('https://jsonplaceholder.typicode.com/users')
+      let response = await axios.get(`https://jsonplaceholder.typicode.com/users/${identifier}`)
       SetUsers(response.data)
+      SetLoading(false)
     } catch (e) {
       console.log(e.message)
     }
@@ -16,12 +21,13 @@ function App() {
 
   useEffect(() => {
     getUsers()
-  }, [])
+  }, [identifier])
   
   return (
     <div className="py-5">
       <div className="container">
         <div className="row justify-content-center">
+          <input type="text" name="" id="" onChange= {(e) => SetIdentifier(e.target.value)} className="form-control" />
           <div className="col-md-8">
             <table className="table">
               <thead>
@@ -35,21 +41,19 @@ function App() {
               </thead>
 
               <tbody>
-                {/* ini adalah perulangan dengan menggunakan reactjs */}
-                {
-                  Users.map((user, index) =>{
-                    return(
-                      <tr key={index}>
-                        <td>{user.name}</td>
-                        <td>{user.username}</td>
-                        <td>{user.email}</td>
-                        <td>{user.website}</td>
-                        <td>{user.phone}</td>
+                
+                {   
+                    loading ? <div> Loading . . .</div> :
+                      <tr >
+                        <td>{Users.name}</td>
+                        <td>{Users.username}</td>
+                        <td>{Users.email}</td>
+                        <td>{Users.website}</td>
+                        <td>{Users.phone}</td>
                       </tr>
-                    )
-                  })
-                }
-                {/* sampai tahap ini */}
+                    
+                  }
+                
               </tbody>
             </table>
           </div>
